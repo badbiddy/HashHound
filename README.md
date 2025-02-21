@@ -1,18 +1,21 @@
 # HashHound 🐾🔐
 
 ## Overview
-HashHound is a Python tool designed to analyze an NT password hash dump and detect duplicate hashes, which indicate accounts that share the same password.
+HashHound is a Python tool designed to analyze an NT password hash dump and detect duplicate hashes, which indicate accounts that share the same password. It also supports highlighting privileged accounts and prioritizing them in the output.
 
 ## 🔍 Why This is Important
 
 Shared passwords across multiple accounts are a major security risk, allowing attackers to move laterally within a system after compromising a single account. HashHound helps detect such vulnerabilities quickly.
 
 ## ⚙️ Features
-✅ Detects duplicate NT hashes to find accounts using the same password.
-✅ Formatted table output for readability.
-✅ CSV export option for reporting and further analysis.
-✅ Handles large datasets efficiently.
-✅ Command-line flags for flexibility.
+- ✅ Detects duplicate NT hashes to find accounts using the same password.
+- ✅ Prioritizes privileged accounts in the output.
+- ✅ Case-insensitive username matching for more accurate results.
+- ✅ Automatically strips domain prefixes (example\user-name → user-name).
+- ✅ Formatted table output for readability.
+- ✅ CSV export option for reporting and further analysis.
+- ✅ Handles large datasets efficiently.
+- ✅ Command-line flags for flexibility.
 
 ## 💚 Installation
 
@@ -34,6 +37,10 @@ python hashhound.py -f hashes.txt
 Save Results to CSV
 ```
 python hashhound.py -f hashes.txt -o results.csv
+```
+Highlight Privileged Accounts
+```
+python hashhound.py -f hashes.txt --privileged privileged_accounts.txt
 ```
 Help Menu
 ```
