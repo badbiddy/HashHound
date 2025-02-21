@@ -52,9 +52,10 @@ def display_results(duplicate_hashes, output_file=None):
     table_data = []
     for nt_hash, users in duplicate_hashes.items():
         user_count = len(users)
-        displayed_users = ", ".join(users[:5])  # Show first 5 users
-        if user_count > 5:
-            displayed_users += f", +{user_count - 5} more"
+        if user_count <= 5:
+            displayed_users = ", ".join(users)
+        else:
+            displayed_users = f"{user_count} accounts detected. Export to CSV for full list."
         table_data.append([nt_hash, user_count, displayed_users])
     
     # Print table with updated column header
@@ -65,8 +66,8 @@ def display_results(duplicate_hashes, output_file=None):
         with open(output_file, "w", newline="") as csvfile:
             writer = csv.writer(csvfile)
             writer.writerow(["NT Hash", "Shared By (Count)", "User Accounts"])
-            for row in table_data:
-                writer.writerow(row)
+            for nt_hash, users in duplicate_hashes.items():
+                writer.writerow([nt_hash, len(users), ", ".join(users)])
         print(f"\nResults saved to {output_file}")
 
 def main():
